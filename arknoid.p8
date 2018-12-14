@@ -19,7 +19,8 @@ local ball_ant_y
 local blocks
 local hud
 local lives
-local debug=false
+local debug=true
+local debugT="debug"
 
 function _init()
   -- quantidade inicial de vidas
@@ -130,16 +131,12 @@ function _init()
       --     self.vx *= -1
       --   end
       -- end
+      if objects_overlapping(self, player) then
+        debugT="COLIDE"
+      end
     end,
     draw=function(self)
       spr(4, self.x, self.y)
-      if debug then
-        rect(self.x, self.y, self.x+self.width, self.y+self.height, 7)
-        rectfill(player.x+3, player.y, player.x+player.width-3, player.y+player.height, 2)
-        rectfill(player.x, player.y, player.x+3, player.y+player.height, 3)
-        rectfill(player.x+player.width-3, player.y, player.x+player.width, player.y+player.height, 4)
-        pset(self.x, self.y, 8)
-      end
     end,
     throw=function(self)
       -- inserir a matematica para lancar a bola de acordo com a velocidade
@@ -166,12 +163,12 @@ function _init()
     draw = function(self)
       print("lives: "..lives, self.x, self.y)
       -- debug
-      if debug then
-        print ("pw="..player.width, 5, 5)
-        print ("ph="..player.height, 5, 13)
-        print ("bw="..ball.width, 50, 5)
-        print ("bh="..ball.height, 50, 13)
-      end
+      -- if debug then
+      --   print ("pw="..player.width, 5, 5)
+      --   print ("ph="..player.height, 5, 13)
+      --   print ("bw="..ball.width, 50, 5)
+      --   print ("bh="..ball.height, 50, 13)
+      -- end
     end
   }
 
@@ -180,6 +177,7 @@ function _init()
 end
 
 function _update()
+  debugT="debug"
   player:update()
   ball:update()
   local block
@@ -193,6 +191,9 @@ end
 
 function _draw()
   cls()
+  if debug then
+    print(debugT,0,0)
+  end
   rect(0,0,127,127, 1)
   player:draw()
   ball:draw()
