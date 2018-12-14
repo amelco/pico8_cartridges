@@ -110,26 +110,26 @@ function _init()
       end
       -- checa colisao com o bastao
       local x,y,w,h = player.x,player.y,player.width,player.height
-      local top_hitbox = {x=x+3, y=y, width=w-6, height=h}
-      local left_hitbox = {x=x, y=y, width=3, height=h}
-      local right_hitbox = {x=x+w-3, y=y, width=3, height=h}
-      -- aqui vem a matematica para redirecionar a bola dependendo da
-      --   velocidade do bastao e direcao da bola
-      if not self.is_standing_player then
-        if objects_overlapping(self, top_hitbox) then -- checa colisao da bola com topo do bastao
-          self.y = player.y - self.width
-          self.speedy *= -1
-          self.vy *= -1
-        elseif objects_overlapping(self, left_hitbox) then  -- checa colisao da bola com lado esquerdo do bastao
-          self.x = player.x-self.width
-          self.speedx *= -1
-          self.vx *= -1
-        elseif objects_overlapping(self, right_hitbox) then -- checa colisao da bola com lado direito do bastao
-          self.x = player.x+player.width
-          self.speedx *= -1
-          self.vx *= -1
-        end
-      end
+      -- local top_hitbox = {x=x+3, y=y, width=w-6, height=h}
+      -- local left_hitbox = {x=x, y=y, width=3, height=h}
+      -- local right_hitbox = {x=x+w-3, y=y, width=3, height=h}
+      -- -- aqui vem a matematica para redirecionar a bola dependendo da
+      -- --   velocidade do bastao e direcao da bola
+      -- if not self.is_standing_player then
+      --   if objects_overlapping(self, top_hitbox) then -- checa colisao da bola com topo do bastao
+      --     self.y = player.y - self.width
+      --     self.speedy *= -1
+      --     self.vy *= -1
+      --   elseif objects_overlapping(self, left_hitbox) then  -- checa colisao da bola com lado esquerdo do bastao
+      --     self.x = player.x-self.width
+      --     self.speedx *= -1
+      --     self.vx *= -1
+      --   elseif objects_overlapping(self, right_hitbox) then -- checa colisao da bola com lado direito do bastao
+      --     self.x = player.x+player.width
+      --     self.speedx *= -1
+      --     self.vx *= -1
+      --   end
+      -- end
     end,
     draw=function(self)
       spr(4, self.x, self.y)
