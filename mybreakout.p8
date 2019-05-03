@@ -2,7 +2,7 @@ pico-8 cartridge // http://www.pico-8.com
 version 16
 __lua__
 ball_x=1
-ball_y=64
+ball_y=33
 ball_dx=2
 ball_dy=2
 ball_r=2
@@ -13,6 +13,7 @@ pad_y=120
 pad_dx=0
 pad_w=24
 pad_h=3
+pad_c=7
 
 function _init()
  cls()
@@ -46,12 +47,40 @@ function _update()
   ball_dy=-ball_dy
   sfx(0)
  end
+ 
+ pad_c=7
+ -- chack if ball hits pad
+ if ball_box(pad_x,pad_y,pad_w,pad_h) then
+  -- deal with collision
+  pad_c=8
+ end
 end
+
 
 function _draw()
  cls(1)
  circfill(ball_x,ball_y,ball_r,10)
- rectfill(pad_x,pad_y,pad_x+pad_w,pad_y+pad_h,7)
+ rectfill(pad_x,pad_y,pad_x+pad_w,pad_y+pad_h,pad_c)
 end
+
+function ball_box(box_x,box_y,box_w,box_h)
+ -- checks for collision of the ball with a rectngle
+ if ball_y-ball_r>box_y+box_h then
+  return false
+ end
+ if ball_y+ball_r<box_y then
+  return false
+ end
+ if ball_x-ball_r>box_x+box_w then
+  return false
+ end
+ if ball_x+ball_r<box_x then
+  return false
+ end
+ return true
+end
+
+
+
 __sfx__
 000100001734017340173401733017320173100c300083000730007300093000a3000c3000e300113001330013300020000200001000010000200001000010000100001000010000100001000010000100001000
