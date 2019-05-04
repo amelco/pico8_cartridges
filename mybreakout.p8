@@ -1,26 +1,26 @@
 pico-8 cartridge // http://www.pico-8.com
 version 16
 __lua__
-ball_x=1
-ball_y=33
-ball_dx=2
-ball_dy=2
-ball_r=2
-ball_dr=0.5
-
-pad_x=52
-pad_y=120
-pad_dx=0
-pad_w=24
-pad_h=3
-pad_c=7
-
 function _init()
  cls()
+ 
+ ball_x=1
+ ball_y=33
+ ball_dx=2
+ ball_dy=2
+ ball_r=2
+ ball_dr=0.5
+ 
+ pad_x=52
+ pad_y=120
+ pad_dx=0
+ pad_w=24
+ pad_h=3
+	pad_c=7
 end
 
 function _update()
- buttpress=false
+ local buttpress=false
  if btn(0) then
   --left
   pad_dx=-5
@@ -52,6 +52,11 @@ function _update()
  -- chack if ball hits pad
  if ball_box(pad_x,pad_y,pad_w,pad_h) then
   -- deal with collision
+  if refl_ball_v() then
+   ball_dy=-ball_dy
+  else
+   ball_dx=-ball_dx
+  end
   pad_c=8
  end
 end
@@ -80,7 +85,9 @@ function ball_box(box_x,box_y,box_w,box_h)
  return true
 end
 
-
+function refl_ball_v()
+ return true
+end
 
 __sfx__
 000100001734017340173401733017320173100c300083000730007300093000a3000c3000e300113001330013300020000200001000010000200001000010000100001000010000100001000010000100001000
